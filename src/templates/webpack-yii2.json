@@ -1,0 +1,18 @@
+{
+    "sourceDir": "protected/assets/webpack",
+    "entry": {
+
+    },
+    "commonBundles": [
+        "manifest"
+    ],
+    "subDirectories": {
+        "sources": "src",
+        "dist": "dist"
+    },
+    "assets": {
+        "styles": "css",
+        "scripts": "js"
+    },
+    "catalog": "assets-catalog.json"
+}
