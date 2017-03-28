@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+/**
+ * yii
+ *
+ * PHP version 5.6+
+ *
+ * Initial console script
+ *
+ * @author Philippe Gaultier <pgaultier@sweelix.net>
+ * @copyright 2010-2017 Sweelix
+ * @license http://www.sweelix.net/license license
+ * @version XXX
+ * @link http://www.sweelix.net
+ * @package application\base
+ */
+
+return require('yii.php');
