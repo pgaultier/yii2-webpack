@@ -7,7 +7,7 @@
  * @author Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2017 Philippe Gaultier
  * @license http://www.sweelix.net/license license
- * @version XXX
+ * @version 1.0.1
  * @link http://www.sweelix.net
  * @package sweelix\webpack
  */
@@ -20,12 +20,12 @@ use yii\console\Application as ConsoleApplication;
 
 
 /**
- * Oauth2 server Module definition
+ * Webpack Module definition
  *
  * @author Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2017 Philippe Gaultier
  * @license http://www.sweelix.net/license license
- * @version XXX
+ * @version 1.0.1
  * @link http://www.sweelix.net
  * @package sweelix\webpack
  * @since XXX
@@ -45,7 +45,7 @@ class Module extends BaseModule implements BootstrapInterface
     /**
      * Update controllers map to add console commands
      * @param ConsoleApplication $app
-     * @since XXX
+     * @since 1.0.0
      */
     protected function mapConsoleControllers(ConsoleApplication $app)
     {

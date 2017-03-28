@@ -7,7 +7,7 @@
  * @author Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2017 Ibitux
  * @license http://www.ibitux.com/license license
- * @version XXX
+ * @version 1.0.1
  * @link http://www.ibitux.com
  * @package sweelix\webpack
  */
@@ -25,10 +25,10 @@ use Yii;
  * @author Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2017 Ibitux
  * @license http://www.ibitux.com/license license
- * @version XXX
+ * @version 1.0.1
  * @link http://www.ibitux.com
  * @package sweelix\webpack
- * @since XXX
+ * @since 1.0.0
  */
 class WebpackAssetBundle extends AssetBundle
 {
@@ -60,7 +60,7 @@ class WebpackAssetBundle extends AssetBundle
     /**
      * Merge webpack bundles with classic bundles and cache it if needed
      * @return void
-     * @since XXX
+     * @since 1.0.0
      */
     protected function mergeWebpackBundles()
     {
