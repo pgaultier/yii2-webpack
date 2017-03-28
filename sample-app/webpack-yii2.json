@@ -1,6 +1,8 @@
 {
     "sourceDir": "protected\/assets\/webpack",
-    "entry": {},
+    "entry": {
+        "app": "./app.ts"
+    },
     "commonBundles": [
         "manifest"
     ],

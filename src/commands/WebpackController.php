@@ -49,6 +49,11 @@ class WebpackController extends Controller
     public $webpackConfigJs = '@sweelix/webpack/templates/webpack.config.js';
 
     /**
+     * @var string alias to tsconfig.json template file
+     */
+    public $tsConfigJson = '@sweelix/webpack/templates/tsconfig.json';
+
+    /**
      * @var string relative path to composer.json
      */
     protected $composerJsonPath;
@@ -70,6 +75,7 @@ class WebpackController extends Controller
         $this->generatePackageJson();
         $this->generateConfigJson();
         $this->generateWebpackConfigJs();
+        $this->generateTsConfigJson();
         $this->stdout('You can now configure your webpack assets with:'."\n", Console::BOLD, Console::FG_GREEN);
         $this->stdout("\t".' * '.pathinfo($this->webpackConfigJson, PATHINFO_BASENAME)."\n", Console::BOLD, Console::FG_GREEN);
         $this->stdout("\t".' * '.pathinfo($this->packageJson, PATHINFO_BASENAME)."\n", Console::BOLD, Console::FG_GREEN);
@@ -118,6 +124,19 @@ class WebpackController extends Controller
     }
 
     /**
+     * Generate webpack-yii2.json file
+     *
+     * @return int
+     * @since XXX
+     */
+    public function actionGenerateTypescriptConfig()
+    {
+        $this->generateTsConfigJson();
+        $this->stdout('Build typescript assets with generated config: webpack'."\n", Console::BOLD, Console::FG_GREEN);
+        return Controller::EXIT_CODE_NORMAL;
+    }
+
+    /**
      * Prepare webpack.config.js file
      * @since XXX
      */
@@ -127,6 +146,29 @@ class WebpackController extends Controller
         $composerJsonPath = $this->findComposerJson();
         $webpackJs = file_get_contents(Yii::getAlias($this->webpackConfigJs));
         $filename = pathinfo($this->webpackConfigJs, PATHINFO_BASENAME);
+        $webpackConfigJsonFile = $composerJsonPath . '/' . $filename;
+        if (file_exists($webpackConfigJsonFile) === true) {
+            $question = $this->ansiFormat('Overwrite '.$filename.' ?', Console::FG_RED, Console::BOLD);
+            $status = $this->confirm($question);
+            if ($status === true) {
+                file_put_contents($webpackConfigJsonFile, $webpackJs);
+            }
+        } else {
+            file_put_contents($webpackConfigJsonFile, $webpackJs);
+        }
+
+    }
+
+    /**
+     * Prepare tsconfig.json file
+     * @since XXX
+     */
+    protected function generateTsConfigJson()
+    {
+        $this->stdout('Generating tsconfig.json'."\n", Console::FG_GREEN, Console::BOLD);
+        $composerJsonPath = $this->findComposerJson();
+        $webpackJs = file_get_contents(Yii::getAlias($this->tsConfigJson));
+        $filename = pathinfo($this->tsConfigJson, PATHINFO_BASENAME);
         $webpackConfigJsonFile = $composerJsonPath . '/' . $filename;
         if (file_exists($webpackConfigJsonFile) === true) {
             $question = $this->ansiFormat('Overwrite '.$filename.' ?', Console::FG_RED, Console::BOLD);
