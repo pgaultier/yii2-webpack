@@ -1,5 +1,5 @@
 {
-    "name": "sweelix/yii2-webpack",
+    "name": "sweelix/yii2-webpack-demo",
     "description": "Sweelix Yii2 webpack",
     "keywords": ["yii2", "framework", "sweelix", "webpack"],
     "type": "project",
@@ -20,7 +20,7 @@
         "ext-gd": "*",
         "ext-intl": "*",
         "yiisoft/yii2": "~2.0",
-        "sweelix/yii2-webpack": "*"
+        "sweelix/yii2-webpack": "~1.0"
     },
     "require-dev" : {
         "yiisoft/yii2-debug":"~2.0",

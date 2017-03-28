@@ -7,7 +7,7 @@
  * @author Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2017 Philippe Gaultier
  * @license http://www.sweelix.net/license license
- * @version XXX
+ * @version 1.0.1
  * @link http://www.sweelix.net
  * @package sweelix\webpack\commands
  */
@@ -25,10 +25,10 @@ use Yii;
  * @author Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2017 Philippe Gaultier
  * @license http://www.sweelix.net/license license
- * @version XXX
+ * @version 1.0.1
  * @link http://www.sweelix.net
  * @package sweelix\webpack\commands
- * @since XXX
+ * @since 1.0.0
  */
 class WebpackController extends Controller
 {
@@ -49,6 +49,11 @@ class WebpackController extends Controller
     public $webpackConfigJs = '@sweelix/webpack/templates/webpack.config.js';
 
     /**
+     * @var string alias to tsconfig.json template file
+     */
+    public $tsConfigJson = '@sweelix/webpack/templates/tsconfig.json';
+
+    /**
      * @var string relative path to composer.json
      */
     protected $composerJsonPath;
@@ -62,7 +67,7 @@ class WebpackController extends Controller
      * Initialize webpack for current project (webpack.config.js, package.json, webpack-yii2.json)
      *
      * @return int
-     * @since XXX
+     * @since 1.0.0
      */
     public function actionInit()
     {
@@ -70,6 +75,7 @@ class WebpackController extends Controller
         $this->generatePackageJson();
         $this->generateConfigJson();
         $this->generateWebpackConfigJs();
+        $this->generateTsConfigJson();
         $this->stdout('You can now configure your webpack assets with:'."\n", Console::BOLD, Console::FG_GREEN);
         $this->stdout("\t".' * '.pathinfo($this->webpackConfigJson, PATHINFO_BASENAME)."\n", Console::BOLD, Console::FG_GREEN);
         $this->stdout("\t".' * '.pathinfo($this->packageJson, PATHINFO_BASENAME)."\n", Console::BOLD, Console::FG_GREEN);
@@ -82,7 +88,7 @@ class WebpackController extends Controller
      * Generate webpack.config.js file
      *
      * @return int
-     * @since XXX
+     * @since 1.0.0
      */
     public function actionGenerateWebpack()
     {
@@ -95,7 +101,7 @@ class WebpackController extends Controller
      * Generate package.json file
      *
      * @return int
-     * @since XXX
+     * @since 1.0.0
      */
     public function actionGeneratePackage()
     {
@@ -108,7 +114,7 @@ class WebpackController extends Controller
      * Generate webpack-yii2.json file
      *
      * @return int
-     * @since XXX
+     * @since 1.0.0
      */
     public function actionGenerateConfig()
     {
@@ -118,8 +124,21 @@ class WebpackController extends Controller
     }
 
     /**
+     * Generate tsconfig.json file
+     *
+     * @return int
+     * @since 1.0.1
+     */
+    public function actionGenerateTypescriptConfig()
+    {
+        $this->generateTsConfigJson();
+        $this->stdout('Build typescript assets with generated config: webpack'."\n", Console::BOLD, Console::FG_GREEN);
+        return Controller::EXIT_CODE_NORMAL;
+    }
+
+    /**
      * Prepare webpack.config.js file
-     * @since XXX
+     * @since 1.0.0
      */
     protected function generateWebpackConfigJs()
     {
@@ -141,8 +160,31 @@ class WebpackController extends Controller
     }
 
     /**
+     * Prepare tsconfig.json file
+     * @since 1.0.1
+     */
+    protected function generateTsConfigJson()
+    {
+        $this->stdout('Generating tsconfig.json'."\n", Console::FG_GREEN, Console::BOLD);
+        $composerJsonPath = $this->findComposerJson();
+        $webpackJs = file_get_contents(Yii::getAlias($this->tsConfigJson));
+        $filename = pathinfo($this->tsConfigJson, PATHINFO_BASENAME);
+        $webpackConfigJsonFile = $composerJsonPath . '/' . $filename;
+        if (file_exists($webpackConfigJsonFile) === true) {
+            $question = $this->ansiFormat('Overwrite '.$filename.' ?', Console::FG_RED, Console::BOLD);
+            $status = $this->confirm($question);
+            if ($status === true) {
+                file_put_contents($webpackConfigJsonFile, $webpackJs);
+            }
+        } else {
+            file_put_contents($webpackConfigJsonFile, $webpackJs);
+        }
+
+    }
+
+    /**
      * Prepare webpack config for yii
-     * @since XXX
+     * @since 1.0.0
      */
     protected function generateConfigJson()
     {
@@ -200,6 +242,11 @@ class WebpackController extends Controller
 
     }
 
+    /**
+     * Search composer.json
+     * @return string
+     * @since 1.0.0
+     */
     protected function findComposerJson()
     {
         if ($this->composerJsonPath === null) {
@@ -226,7 +273,7 @@ class WebpackController extends Controller
 
     /**
      * Search information from composer.json and generate package.json
-     * @since XXX
+     * @since 1.0.0
      */
     protected function generatePackageJson()
     {
