@@ -1,0 +1,60 @@
+{
+    "name": "sweelix/yii2-webpack",
+    "description": "Sweelix Yii2 webpack",
+    "keywords": ["yii2", "framework", "sweelix", "webpack"],
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Philippe Gaultier",
+            "email": "pgaultier@sweelix.net"
+        }
+    ],
+    "repositories": [
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "ext-mcrypt": "*",
+        "ext-openssl": "*",
+        "ext-curl": "*",
+        "ext-gd": "*",
+        "ext-intl": "*",
+        "yiisoft/yii2": "~2.0",
+        "sweelix/yii2-webpack": "*"
+    },
+    "require-dev" : {
+        "yiisoft/yii2-debug":"~2.0",
+        "yiisoft/yii2-gii": "~2.0"
+    },
+    "config": {
+        "vendor-dir": "protected/vendor",
+        "process-timeout": 1800
+    },
+    "scripts": {
+        "pre-install-cmd": [
+            "@composer global require \"fxp/composer-asset-plugin:^1.2.0\""
+        ],
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "protected/runtime": "0777",
+                    "assets": "0777",
+                    "cache": "0777",
+                    "protected/yii": "0755"
+                }
+            ],
+            "generateCookieValidationKey": [
+                "protected/config/web.php"
+            ]
+        },
+        "asset-installer-paths": {
+            "npm-asset-library": "protected/vendor/npm",
+            "bower-asset-library": "protected/vendor/bower"
+        }
+    }
+}
