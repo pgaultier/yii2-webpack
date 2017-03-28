@@ -1,0 +1,32 @@
+## Editors - OS
+.idea
+.DS_Store
+Thumbs.db
+
+## builders
+bower_components
+node_modules
+
+## Yii directories
+assets/*
+protected/runtime/*
+protected/vendor/*
+
+## Angular directories
+protected/assets/angular/sources/app/generated
+protected/assets/angular/sources/vendor
+protected/assets/angular/build
+
+## Disallow config stuff in git
+protected/config/*-dev.php
+protected/config/dev
+protected/config/int
+protected/config/prp
+protected/config/prd
+
+## Keep clean tests dir
+tests/codeception/_output/*
+tests/codeception/_support/*
+
+## Force files to keep
+!.gitkeep

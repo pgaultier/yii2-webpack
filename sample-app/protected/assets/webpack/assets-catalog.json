@@ -1,0 +1,8 @@
+{
+  "app": {
+    "js": "js/app.js"
+  },
+  "manifest": {
+    "js": "js/manifest.js"
+  }
+}

@@ -1,0 +1,34 @@
+#In order to define current system change environment
+# prd | prp | int | dev
+SetEnv YII_ENV prd
+#If debug is needed define YII DEBUG
+#SetEnv YII_DEBUG
+#If maintenance mode is needed define YII_MAINTENANCE
+#SetEnv YII_MAINTENANCE
+
+Options +Multiviews
+
+RewriteEngine on
+
+## Force HTTPS if needed
+#RewriteCond %{HTTPS} off
+#RewriteCond %{REQUEST_URI} !^/images/.*$ [NC]
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+## Disallow access to git and dev resources
+RewriteRule ^(.*/)?\.git+ - [R=404,L]
+RewriteRule ^(.*/)?\.yml+ - [R=404,L]
+RewriteRule ^(.*/)?\.ht+ - [R=404,L]
+RewriteRule ^\.buildpacks$ - [R=404,L]
+RewriteRule ^(.*)\.md$ - [R=404,L]
+RewriteRule ^composer\.+ - [R=404,L]
+RewriteRule ^package\.+ - [R=404,L]
+RewriteRule ^bower\.+ - [R=404,L]
+RewriteRule ^gulpfile\.+ - [R=404,L]
+RewriteRule ^webpack\.+ - [R=404,L]
+RewriteRule ^tsconfig\.+ - [R=404,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !/assets/.*$
+RewriteRule . index.php
