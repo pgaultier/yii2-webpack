@@ -17,7 +17,9 @@ const AssetsPlugin = require('assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const prodFlag = process.argv.indexOf('-p') !== -1;
+
 module.exports = {
     entry: config.entry,
     context: path.resolve(__dirname, config.sourceDir, config.subDirectories.sources),
@@ -126,7 +128,8 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        alias: config.alias,
+        extensions: ['.tsx', '.ts', '.jsx', '.js']
     },
     devtool: 'source-map',
     target: 'web'
