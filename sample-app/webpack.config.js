@@ -76,6 +76,7 @@ module.exports = {
             }
         })
     ],
+    externals: config.externals,
     module: {
         rules: [
             {
