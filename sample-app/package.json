@@ -23,6 +23,7 @@
         "style-loader": "^0.14.1",
         "ts-loader": "^2.0.2",
         "typescript": "^2.2.1",
-        "webpack": "^2.2.1"
+        "webpack": "^2.2.1",
+        "yargs": "^7.0.2"
     }
 }

@@ -8,8 +8,7 @@
  * @link http://www.ibitux.com
  */
 
-const config = require('./webpack-yii2.json');
-
+const argv = require('yargs').argv;
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
@@ -19,6 +18,19 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const prodFlag = process.argv.indexOf('-p') !== -1;
+
+var confPath = './webpack-yii2.json';
+if(argv.env && argv.env.config) {
+    confPath = path.join(__dirname, argv.env.config, 'webpack-yii2.json');
+}
+if(!fs.existsSync(confPath)) {
+    throw 'Error: file "' + confPath + '" not found.';
+}
+
+var config = require(confPath);
+if (argv.env && argv.env.config) {
+    config.sourceDir = path.relative(__dirname, argv.env.config);
+}
 
 module.exports = {
     entry: config.entry,
