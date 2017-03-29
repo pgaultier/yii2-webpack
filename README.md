@@ -12,15 +12,19 @@ Webpack2 comes preconfigured with the following loaders
 
 
 [![Latest Stable Version](https://poser.pugx.org/sweelix/yii2-webpack/v/stable)](https://packagist.org/packages/sweelix/yii2-webpack)
+<!--
 [![Build Status](https://api.travis-ci.org/pgaultier/yii2-webpack.svg?branch=master)](https://travis-ci.org/pgaultier/yii2-webpack)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/?branch=master)
+-->
 [![License](https://poser.pugx.org/sweelix/yii2-webpack/license)](https://packagist.org/packages/sweelix/yii2-webpack)
 
 [![Latest Development Version](https://img.shields.io/badge/unstable-devel-yellowgreen.svg)](https://packagist.org/packages/sweelix/yii2-webpack)
+<!--
 [![Build Status](https://travis-ci.org/pgaultier/yii2-webpack.svg?branch=devel)](https://travis-ci.org/pgaultier/yii2-webpack)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/badges/quality-score.png?b=devel)](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/?branch=devel)
 [![Code Coverage](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/badges/coverage.png?b=devel)](https://scrutinizer-ci.com/g/pgaultier/yii2-webpack/?branch=devel)
+-->
 
 Installation
 ------------
