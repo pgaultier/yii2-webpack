@@ -9,6 +9,9 @@
     "externals": {
 
     },
+    "alias": {
+
+    },
     "subDirectories": {
         "sources": "src",
         "dist": "dist"

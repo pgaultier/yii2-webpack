@@ -252,6 +252,7 @@ When your assets are ready, you have to make sure following files are added to y
  * **entry** object syntax entry points [Webpack entry documentation](https://webpack.js.org/concepts/entry-points/#object-syntax)
  * **commonBundles** explicit vendor chunk [Webpack CommonChunkPlugin documentation](https://webpack.js.org/plugins/commons-chunk-plugin/#explicit-vendor-chunk)
  * **externals** object syntax externals [Webpack externals documentation](https://webpack.js.org/configuration/externals/#object)
+ * **alias** object syntax resolve.alias [Webpack resolve.alias documentation](https://webpack.js.org/configuration/resolve/#resolve-alias)
  
  
 Contributing
