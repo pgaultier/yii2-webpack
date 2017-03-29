@@ -6,6 +6,9 @@
     "commonBundles": [
         "manifest"
     ],
+    "externals": {
+
+    },
     "subDirectories": {
         "sources": "src",
         "dist": "dist"
