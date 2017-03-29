@@ -129,7 +129,7 @@ module.exports = {
     },
     resolve: {
         alias: config.alias,
-        extensions: ['.tsx', '.ts', '.jsx', '.js']
+        extensions: ['.tsx', '.ts', '.js']
     },
     devtool: 'source-map',
     target: 'web'
