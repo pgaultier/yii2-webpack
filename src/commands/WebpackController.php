@@ -228,6 +228,8 @@ class WebpackController extends Controller
         $configJson['catalog'] = $catalogFilename;
 
         $configJson['entry'] = (object)[];
+        $configJson['externals'] = (object)[];
+        $configJson['alias'] = (object)[];
         $filename = pathinfo($this->webpackConfigJson, PATHINFO_BASENAME);
         $webpackConfigJsonFile = $composerJsonPath . '/' . $filename;
         if (file_exists($webpackConfigJsonFile) === true) {
