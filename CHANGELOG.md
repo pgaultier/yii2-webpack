@@ -1,6 +1,8 @@
 Yii2 Webpack Change Log
 =======================
 
+ * Enh: Allow use of separate `webpack-yii2.json` in `assets` directories
+ * Enh: Allow `sass` and `scss` files
  * Fix: Fix `webpack-yii2.json` generation (create objects instead of arrays)
  * Enh: adding Webpack alias in `webpack-yii2.json`
  * Enh: adding Webpack externals in `webpack-yii2.json`
