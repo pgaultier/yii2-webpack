@@ -7,7 +7,7 @@
  * @author Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2017 Philippe Gaultier
  * @license http://www.sweelix.net/license license
- * @version 1.0.1
+ * @version 1.1.0
  * @link http://www.sweelix.net
  * @package sweelix\webpack\commands
  */
@@ -25,7 +25,7 @@ use Yii;
  * @author Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2017 Philippe Gaultier
  * @license http://www.sweelix.net/license license
- * @version 1.0.1
+ * @version 1.1.0
  * @link http://www.sweelix.net
  * @package sweelix\webpack\commands
  * @since 1.0.0
@@ -228,6 +228,8 @@ class WebpackController extends Controller
         $configJson['catalog'] = $catalogFilename;
 
         $configJson['entry'] = (object)[];
+        $configJson['externals'] = (object)[];
+        $configJson['alias'] = (object)[];
         $filename = pathinfo($this->webpackConfigJson, PATHINFO_BASENAME);
         $webpackConfigJsonFile = $composerJsonPath . '/' . $filename;
         if (file_exists($webpackConfigJsonFile) === true) {
