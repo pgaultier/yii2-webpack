@@ -7,7 +7,7 @@
  * @author Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2017 Ibitux
  * @license http://www.ibitux.com/license license
- * @version 1.0.1
+ * @version 1.1.0
  * @link http://www.ibitux.com
  * @package sweelix\webpack
  */
@@ -25,7 +25,7 @@ use Yii;
  * @author Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2017 Ibitux
  * @license http://www.ibitux.com/license license
- * @version 1.0.1
+ * @version 1.1.0
  * @link http://www.ibitux.com
  * @package sweelix\webpack
  * @since 1.0.0
