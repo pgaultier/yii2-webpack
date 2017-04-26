@@ -1,6 +1,8 @@
 Yii2 Webpack Change Log
 =======================
 
+ * Enh: Add documentation to handle special cases (when a vendor module uses typescript)
+
 1.1.0 April 7, 2017
 -------------------
 
