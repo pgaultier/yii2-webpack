@@ -67,9 +67,9 @@ class WebpackAssetBundle extends AssetBundle
         try {
             if ((isset($this->webpackPath) === true) && (is_array($this->webpackBundles) === true)) {
                 $cacheKey = self::CACHE_KEY . get_called_class();
+                $this->sourcePath = $this->webpackPath . '/' . $this->webpackDistDirectory;
                 if ((Yii::$app->cache === null) || (Yii::$app->cache->get($cacheKey) === false)) {
                     $assetsFileAlias = $this->webpackPath . '/' . $this->webpackAssetCatalog;
-                    $this->sourcePath = $this->webpackPath . '/' . $this->webpackDistDirectory;
                     $bundles = file_get_contents(Yii::getAlias($assetsFileAlias));
                     $bundles = Json::decode($bundles);
                     if (Yii::$app->cache !== null) {
