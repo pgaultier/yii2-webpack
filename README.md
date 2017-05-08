@@ -40,6 +40,47 @@ If you use Packagist for installing packages, then you can update your `composer
 }
 ```
 
+Warning
+-------
+
+When `vendor` modules use typescript, typescript code can collide. In order to avoid this, you should update your `tsconfig.json` to exclude `vendor` modules
+
+### Generic `tsconfig.json`
+
+```json
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true
+    }
+}
+```
+
+### Amended `tsconfig.json`
+
+If `vendor` modules are in folder **vendor** you should update your `tsconfig.json` like this:
+ 
+```json
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true
+    },
+    "exclude": [
+        "node_modules",
+        "vendor"
+    ]
+}
+```
+
 Howto use it
 ------------
 
@@ -163,6 +204,17 @@ use sweelix\webpack\WebpackAssetBundle;
 
 class WebpackAsset extends WebpackAssetBundle
 {
+
+    /**
+     * @var bool enable caching system (default to false)
+     */
+    public $cacheEnabled = false;
+
+    /**
+     * @var \yii\caching\Cache cache name of cache to use, default to `cache`
+     */
+    public $cache = 'cache';
+
     /**
      * @var string base webpack alias (do not add /src nor /dist, they are automagically handled)
      */
