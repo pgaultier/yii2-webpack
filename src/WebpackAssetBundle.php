@@ -13,7 +13,9 @@
  */
 namespace sweelix\webpack;
 
+use yii\caching\Cache;
 use yii\caching\FileDependency;
+use yii\di\Instance;
 use yii\helpers\Json;
 use yii\web\AssetBundle;
 use Exception;
@@ -36,6 +38,16 @@ class WebpackAssetBundle extends AssetBundle
      * string base cache key
      */
     const CACHE_KEY = 'webpack:bundles:';
+
+    /**
+     * @var bool enable caching system
+     */
+    public $cacheEnabled = false;
+
+    /**
+     * @var \yii\caching\Cache cache
+     */
+    public $cache = 'cache';
 
     /**
      * @var string name of webpack asset catalog, should be in synch with webpack.config.js
@@ -68,18 +80,19 @@ class WebpackAssetBundle extends AssetBundle
             if ((isset($this->webpackPath) === true) && (is_array($this->webpackBundles) === true)) {
                 $cacheKey = self::CACHE_KEY . get_called_class();
                 $this->sourcePath = $this->webpackPath . '/' . $this->webpackDistDirectory;
-                if ((Yii::$app->cache === null) || (Yii::$app->cache->get($cacheKey) === false)) {
+                $cache = $this->getCache();
+                if (($cache === null) || ($cache->get($cacheKey) === false)) {
                     $assetsFileAlias = $this->webpackPath . '/' . $this->webpackAssetCatalog;
                     $bundles = file_get_contents(Yii::getAlias($assetsFileAlias));
                     $bundles = Json::decode($bundles);
-                    if (Yii::$app->cache !== null) {
+                    if ($cache !== null) {
                         $cacheDependency = new FileDependency([
                             'fileName' => $assetsFileAlias
                         ]);
-                        Yii::$app->cache->set($cacheKey, $bundles, 0, $cacheDependency);
+                        $cache->set($cacheKey, $bundles, 0, $cacheDependency);
                     }
                 } else {
-                    $bundles = Yii::$app->cache->get($cacheKey);
+                    $bundles = $cache->get($cacheKey);
                 }
                 foreach($this->webpackBundles as $bundle) {
                     if (isset($bundles[$bundle]['js']) === true) {
@@ -95,6 +108,19 @@ class WebpackAssetBundle extends AssetBundle
             throw $e;
         }
     }
+
+    /**
+     * @return null|Cache
+     * @since XXX
+     */
+    private function getCache()
+    {
+        if ($this->cacheEnabled === true) {
+            $this->cache = Instance::ensure($this->cache, Cache::className());
+        }
+        return $this->cacheEnabled ? $this->cache : null;
+    }
+
     /**
      * @inheritdoc
      */
