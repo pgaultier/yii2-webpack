@@ -1,6 +1,10 @@
 Yii2 Webpack Change Log
 =======================
 
+1.1.1 May 8, 2017
+-------------------
+
+ * Enh: Enable / disable cache system
  * Fix: Fix bad cache management
  * Enh: Add documentation to handle special cases (when a vendor module uses typescript)
 

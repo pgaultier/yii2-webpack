@@ -204,6 +204,17 @@ use sweelix\webpack\WebpackAssetBundle;
 
 class WebpackAsset extends WebpackAssetBundle
 {
+
+    /**
+     * @var bool enable caching system (default to false)
+     */
+    public $cacheEnabled = false;
+
+    /**
+     * @var \yii\caching\Cache cache name of cache to use, default to `cache`
+     */
+    public $cache = 'cache';
+
     /**
      * @var string base webpack alias (do not add /src nor /dist, they are automagically handled)
      */
