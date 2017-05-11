@@ -7,6 +7,7 @@ Yii2 Webpack Change Log
  * Enh: Enable / disable cache system
  * Fix: Fix bad cache management
  * Enh: Add documentation to handle special cases (when a vendor module uses typescript)
+ * Enh: Add .gitattributes to ignore useless files or directory when install via composer
 
 1.1.0 April 7, 2017
 -------------------
@@ -25,7 +26,7 @@ Yii2 Webpack Change Log
  * Fix: add missing tsconfig.json
 
 1.0.0 March 28, 2017
--------------------- 
+--------------------
 
  * Chg: Prepare documentation
  * Chg: Initial public release
