@@ -40,14 +40,6 @@ module.exports = {
         filename: prodFlag ?  '[name].[chunkhash:6].js' : '[name].js'
     },
     plugins: [
-        new webpack.DefinePlugin({
-            process: {
-                env: {
-                    NODE_ENV: prodFlag ? '"production"': '"development"',
-                    DEBUG: !prodFlag
-                }
-            }
-        }),
         new webpack.optimize.CommonsChunkPlugin({
             names: config.commonBundles
         }),
