@@ -1,6 +1,9 @@
 Yii2 Webpack Change Log
 =======================
 
+ * Fix: Remove `DefinePlugin` to avoid collisions with Aurelia Bootstrapper
+ * Enh: Adding `.gitattributes`
+
 1.1.1 May 8, 2017
 -------------------
 
