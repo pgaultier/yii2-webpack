@@ -1,11 +1,14 @@
 Yii2 Webpack Change Log
 =======================
 
+1.2.0 July 11, 2017
+-------------------
+
  * Fix: Remove `DefinePlugin` to avoid collisions with Aurelia Bootstrapper
  * Enh: Adding `.gitattributes`
 
 1.1.1 May 8, 2017
--------------------
+-----------------
 
  * Enh: Enable / disable cache system
  * Fix: Fix bad cache management
