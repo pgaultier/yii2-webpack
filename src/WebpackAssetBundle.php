@@ -4,11 +4,11 @@
  *
  * PHP version 5.6+
  *
- * @author Philippe Gaultier <pgaultier@ibitux.com>
- * @copyright 2010-2017 Ibitux
- * @license http://www.ibitux.com/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version 1.1.0
- * @link http://www.ibitux.com
+ * @link http://www.redcat.io
  * @package sweelix\webpack
  */
 namespace sweelix\webpack;
@@ -24,11 +24,11 @@ use Yii;
 /**
  * Base webpack assets manager
  *
- * @author Philippe Gaultier <pgaultier@ibitux.com>
- * @copyright 2010-2017 Ibitux
- * @license http://www.ibitux.com/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version 1.1.0
- * @link http://www.ibitux.com
+ * @link http://www.redcat.io
  * @package sweelix\webpack
  * @since 1.0.0
  */

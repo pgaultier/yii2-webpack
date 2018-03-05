@@ -7,7 +7,7 @@
     "authors": [
         {
             "name": "Philippe Gaultier",
-            "email": "pgaultier@gmail.com"
+            "email": "pgaultier@redcat.io"
         }
     ],
     "require": {
@@ -15,15 +15,13 @@
         "php" : ">=5.6.0"
     },
     "require-dev" : {
-        "php" : ">=5.6.0",
-        "codeception/codeception": "~2.2"
     },
     "autoload": {
         "psr-4": { "sweelix\\webpack\\": "src" }
     },
     "extra": {
         "branch-alias": {
-            "dev-devel": "1.1.x-dev"
+            "dev-devel": "2.0.x-dev"
         }
     }
 }

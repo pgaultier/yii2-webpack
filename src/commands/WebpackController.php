@@ -4,11 +4,11 @@
  *
  * PHP version 5.6+
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2017 Philippe Gaultier
- * @license http://www.sweelix.net/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version 1.1.0
- * @link http://www.sweelix.net
+ * @link http://www.redcat.io
  * @package sweelix\webpack\commands
  */
 
@@ -20,13 +20,13 @@ use yii\helpers\Json;
 use Yii;
 
 /**
- * Manage assets through Webpack2
+ * Manage assets through Webpack 4
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2017 Philippe Gaultier
- * @license http://www.sweelix.net/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version 1.1.0
- * @link http://www.sweelix.net
+ * @link http://www.redcat.io
  * @package sweelix\webpack\commands
  * @since 1.0.0
  */

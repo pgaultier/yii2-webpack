@@ -1,7 +1,7 @@
 {
-    "name": "ibitux-yii2-template",
+    "name": "redcat-yii2-webpack",
     "version": "1.0.0",
-    "description": "Sweelix webpack",
+    "description": "Redcat webpack integration",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },

@@ -4,11 +4,11 @@
  *
  * PHP version 5.6+
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2017 Philippe Gaultier
- * @license http://www.sweelix.net/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version 1.1.0
- * @link http://www.sweelix.net
+ * @link http://www.redcat.io
  * @package sweelix\webpack
  */
 
@@ -22,11 +22,11 @@ use yii\console\Application as ConsoleApplication;
 /**
  * Webpack Module definition
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2017 Philippe Gaultier
- * @license http://www.sweelix.net/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version 1.1.0
- * @link http://www.sweelix.net
+ * @link http://www.redcat.io
  * @package sweelix\webpack
  * @since XXX
  */

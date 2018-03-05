@@ -1,11 +1,11 @@
 /**
  * webpack.config.js
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2017 Philippe Gaultier
- * @license http://www.ibitux.com/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version XXX
- * @link http://www.ibitux.com
+ * @link http://www.redcat.io
  */
 
 const argv = require('yargs').argv;
