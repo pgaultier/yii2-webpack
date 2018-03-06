@@ -12,12 +12,12 @@ const argv = require('yargs').argv;
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const AssetsPlugin = require('assets-webpack-plugin');
+const AssetsWebpackPlugin = require('assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
-const prodFlag = process.argv.indexOf('-p') !== -1;
+const prodFlag = (process.argv.indexOf('-p') !== -1) || (process.argv.indexOf('production') !== -1);
 
 var confPath = './webpack-yii2.json';
 if(argv.env && argv.env.config) {
@@ -36,20 +36,17 @@ module.exports = {
     entry: config.entry,
     context: path.resolve(__dirname, config.sourceDir, config.subDirectories.sources),
     output: {
-        path: path.resolve(__dirname, config.sourceDir, config.subDirectories.dist, config.assets.scripts),
-        filename: prodFlag ?  '[name].[chunkhash:6].js' : '[name].js'
+        path: path.resolve(__dirname, config.sourceDir, config.subDirectories.dist),
+        filename: prodFlag ?  config.assets.scripts + '/[name].[chunkhash:6].js' : config.assets.scripts + '/[name].js'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            names: config.commonBundles
-        }),
-        new ExtractTextPlugin({
+        new ExtractTextWebpackPlugin({
             filename:  function(getPath) {
-                return getPath(prodFlag ? '../' + config.assets.styles + '/[name].[contenthash:6].css' : '../' + config.assets.styles + '/[name].css');
+                return getPath(prodFlag ? config.assets.styles + '/[name].[contenthash:6].css' : config.assets.styles + '/[name].css');
             },
             allChunks: true
         }),
-        new CompressionPlugin({
+        new CompressionWebpackPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
             test: /\.(js|css)$/
@@ -62,7 +59,7 @@ module.exports = {
             dry: false,
             exclude: []
         }),
-        new AssetsPlugin({
+        new AssetsWebpackPlugin({
             prettyPrint: true,
             filename: config.catalog,
             path:config.sourceDir,
@@ -73,7 +70,7 @@ module.exports = {
                     if(assets.hasOwnProperty(i)) {
                         for (j in assets[i]) {
                             if (assets[i].hasOwnProperty(j)) {
-                                assets[i][j] = path.join(config.assets.scripts, assets[i][j]).replace('\\', '/');
+                                assets[i][j] = assets[i][j].replace('\\', '/');
                             }
                         }
                     }
@@ -102,34 +99,46 @@ module.exports = {
             },
             {
                 test: /\.(ttf|eot|svg|woff|woff2)(\?[a-z0-9]+)?$/,
-                loader: 'file-loader?name=../[path][name].[ext]'
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
             },
             {
                 test: /\.(jpg|png|gif)$/,
-                loader: 'file-loader?name=../[path][name].[ext]'
-            },
-            {
-                test: /\.less$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'less-loader']
-                })
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
             },
             {
                 test: /\.s[ac]ss$/,
-                use: ExtractTextPlugin.extract({
+                use: ExtractTextWebpackPlugin.extract({
+                    publicPath: '../',
                     fallback: 'style-loader',
                     use: ['css-loader', 'sass-loader']
                 })
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
+                use: ExtractTextWebpackPlugin.extract({
+                    publicPath: '../',
                     fallback: 'style-loader',
                     use: ['css-loader']
                 })
             }
         ]
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
     },
     resolve: {
         alias: config.alias,
