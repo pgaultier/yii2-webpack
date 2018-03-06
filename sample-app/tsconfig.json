@@ -1,10 +1,13 @@
 {
     "compilerOptions": {
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es5",
+        "allowJs": true,
+        "declaration": false,
+        "experimentalDecorators": true,
         "jsx": "react",
-        "allowJs": true
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "target": "es5"
     }
 }
