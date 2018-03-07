@@ -96,9 +96,19 @@ class WebpackAssetBundle extends AssetBundle
                 }
                 foreach($this->webpackBundles as $bundle) {
                     if (isset($bundles[$bundle]['js']) === true) {
+                        if (is_array($bundles[$bundle]['js']) === true) {
+                            $file = $bundles[$bundle]['js']['file'];
+                            unset($bundles[$bundle]['js']['file']);
+                            array_unshift($bundles[$bundle]['js'], $file);
+                        }
                         $this->js[] = $bundles[$bundle]['js'];
                     }
                     if (isset($bundles[$bundle]['css']) === true) {
+                        if (is_array($bundles[$bundle]['css']) === true) {
+                            $file = $bundles[$bundle]['css']['file'];
+                            unset($bundles[$bundle]['css']['file']);
+                            array_unshift($bundles[$bundle]['css'], $file);
+                        }
                         $this->css[] = $bundles[$bundle]['css'];
                     }
                 }

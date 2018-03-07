@@ -288,6 +288,7 @@ When your assets are ready, you have to make sure following files are added to y
         "styles": "css",
         "scripts": "js"
     },
+    "sri": "sha256",
     "catalog": "assets-catalog.json"
 }
 ```
@@ -298,6 +299,7 @@ When your assets are ready, you have to make sure following files are added to y
  * **subDirectories** subpath (in *< sourceDir >*) of sources and distribution files
  * **assets** subpath (in *< sourceDir >/< subDirectories.dist >*) of styles and scripts assets
  * **catalog** name of assets catalog, must be in synch with `WebpackAssetBundle::$webpackAssetCatalog`
+ * **sri** can be `sha256` or `sha512` to generate integrity attribute or `false` to avoid integrity check
   
 #### Mapped to Webpack vars
   

@@ -1,6 +1,8 @@
 Yii2 Webpack Change Log
 =======================
 
+ * Enh: Allow integrity generation (SRI)
+ * Enh: Update to Webpack4
 
 1.2.0 July 11, 2017
 -------------------

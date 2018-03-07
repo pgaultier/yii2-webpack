@@ -66,16 +66,40 @@ module.exports = {
             processOutput: function (assets) {
                 var i;
                 var j;
+                var finalAsset = {};
                 for (i in assets) {
                     if(assets.hasOwnProperty(i)) {
+                        if (finalAsset.hasOwnProperty(i) === false) {
+                            finalAsset[i] = {};
+                        }
                         for (j in assets[i]) {
                             if (assets[i].hasOwnProperty(j)) {
-                                assets[i][j] = assets[i][j].replace('\\', '/');
+                                if (config.hasOwnProperty('sri') === true && config.sri !== false) {
+                                    var file = path.resolve(__dirname, config.sourceDir, config.subDirectories.dist, assets[i][j]);
+                                    var contents = fs.readFileSync(file).toString();
+                                    var hash;
+                                    switch (config.sri) {
+                                        case 'sha256':
+                                            hash = 'sha256-' + new Hashes.SHA256().b64(contents);
+                                            break;
+                                        case 'sha512':
+                                        default:
+                                            hash = 'sha512-' + new Hashes.SHA512().b64(contents);
+                                            break;
+                                    }
+
+                                    finalAsset[i][j] = {
+                                        file: assets[i][j].replace('\\', '/'),
+                                        integrity: hash
+                                    };
+                                } else {
+                                    finalAsset[i][j] = assets[i][j].replace('\\', '/');
+                                }
                             }
                         }
                     }
                 }
-                return JSON.stringify(assets, null, this.prettyPrint ? 2 : null);
+                return JSON.stringify(finalAsset, null, this.prettyPrint ? 2 : null);
             }
         })
     ],
