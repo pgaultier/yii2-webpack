@@ -1,6 +1,7 @@
 Yii2 Webpack Change Log
 =======================
 
+ * Enh: Update npm packages
  * Enh: Allow integrity generation (SRI)
  * Enh: Update to Webpack4
 
