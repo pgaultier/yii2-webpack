@@ -2,12 +2,17 @@
     "compilerOptions": {
         "allowJs": true,
         "declaration": false,
+        "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "jsx": "react",
         "module": "commonjs",
         "noImplicitAny": true,
         "sourceMap": true,
         "strictNullChecks": true,
-        "target": "es5"
-    }
+        "target": "es2015"
+    },
+    "exclude": [
+        "node_modules",
+        "vendor"
+    ]
 }
