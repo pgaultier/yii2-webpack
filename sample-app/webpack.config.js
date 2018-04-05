@@ -19,7 +19,7 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const prodFlag = (process.argv.indexOf('-p') !== -1) || (process.argv.indexOf('production') !== -1);
 
-var confPath = './webpack-yii2.json';
+let confPath = './webpack-yii2.json';
 if(argv.env && argv.env.config) {
     confPath = path.join(__dirname, argv.env.config, 'webpack-yii2.json');
 }
@@ -27,7 +27,7 @@ if(!fs.existsSync(confPath)) {
     throw 'Error: file "' + confPath + '" not found.';
 }
 
-var config = require(confPath);
+let config = require(confPath);
 if (argv.env && argv.env.config) {
     config.sourceDir = path.relative(__dirname, argv.env.config);
 }
@@ -64,9 +64,9 @@ module.exports = {
             filename: config.catalog,
             path:config.sourceDir,
             processOutput: function (assets) {
-                var i;
-                var j;
-                var finalAsset = {};
+                let i;
+                let j;
+                let finalAsset = {};
                 for (i in assets) {
                     if(assets.hasOwnProperty(i)) {
                         if (finalAsset.hasOwnProperty(i) === false) {
@@ -75,9 +75,13 @@ module.exports = {
                         for (j in assets[i]) {
                             if (assets[i].hasOwnProperty(j)) {
                                 if (config.hasOwnProperty('sri') === true && config.sri !== false) {
-                                    var file = path.resolve(__dirname, config.sourceDir, config.subDirectories.dist, assets[i][j]);
-                                    var contents = fs.readFileSync(file).toString();
-                                    var hash;
+                                    let currentAsset = assets[i][j];
+                                    if ((typeof currentAsset !== 'string') && (currentAsset.file)) {
+                                        currentAsset = currentAsset.file;
+                                    }
+                                    let file = path.resolve(__dirname, config.sourceDir, config.subDirectories.dist, currentAsset);
+                                    let contents = fs.readFileSync(file).toString();
+                                    let hash;
                                     switch (config.sri) {
                                         case 'sha256':
                                             hash = 'sha256-' + new Hashes.SHA256().b64(contents);
@@ -89,11 +93,11 @@ module.exports = {
                                     }
 
                                     finalAsset[i][j] = {
-                                        file: assets[i][j].replace('\\', '/'),
+                                        file: currentAsset.replace('\\', '/'),
                                         integrity: hash
                                     };
                                 } else {
-                                    finalAsset[i][j] = assets[i][j].replace('\\', '/');
+                                    finalAsset[i][j] = currentAsset.replace('\\', '/');
                                 }
                             }
                         }
@@ -150,6 +154,10 @@ module.exports = {
                     fallback: 'style-loader',
                     use: ['css-loader']
                 })
+            },
+            {
+                test: /\.html$/,
+                use: 'html-loader'
             }
         ]
     },
