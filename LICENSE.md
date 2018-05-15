@@ -1,6 +1,6 @@
 Sweelix Webpack Manager is free software. It is released under the terms of the following BSD License.
 
-Copyright 2010-2017 by Sweelix SAS
+Copyright 2010-2018 by Sweelix SAS
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

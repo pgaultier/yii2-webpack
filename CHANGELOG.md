@@ -1,6 +1,11 @@
 Yii2 Webpack Change Log
 =======================
 
+1.3.0 May 15, 2018
+------------------
+
+ * Enh: Make code compatible with PHP7.2
+
 1.2.0 July 11, 2017
 -------------------
 

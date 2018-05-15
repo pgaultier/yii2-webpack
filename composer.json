@@ -1,6 +1,6 @@
 {
     "name": "sweelix/yii2-webpack",
-    "description": "PHP 5.6+ Webpack integration for the Yii framework",
+    "description": "PHP 7.1+ Webpack integration for the Yii framework",
     "keywords": ["yii2", "webpack", "assets"],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
@@ -11,19 +11,13 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "~2.0",
-        "php" : ">=5.6.0"
+        "yiisoft/yii2": "~2.0.13",
+        "php" : ">=7.1.0"
     },
     "require-dev" : {
-        "php" : ">=5.6.0",
         "codeception/codeception": "~2.2"
     },
     "autoload": {
         "psr-4": { "sweelix\\webpack\\": "src" }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-devel": "1.1.x-dev"
-        }
     }
 }
