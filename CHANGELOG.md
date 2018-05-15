@@ -1,6 +1,9 @@
 Yii2 Webpack Change Log
 =======================
 
+
+ * Enh: Make code compatible with PHP7.2
+
 1.2.0 July 11, 2017
 -------------------
 
