@@ -15,6 +15,7 @@
 namespace sweelix\webpack\commands;
 
 use yii\console\Controller;
+use yii\console\ExitCode;
 use yii\helpers\Console;
 use yii\helpers\Json;
 use Yii;
@@ -81,7 +82,7 @@ class WebpackController extends Controller
         $this->stdout("\t".' * '.pathinfo($this->packageJson, PATHINFO_BASENAME)."\n", Console::BOLD, Console::FG_GREEN);
         $this->stdout('Install npm dependencies: npm install'."\n", Console::BOLD, Console::FG_GREEN);
         $this->stdout('Build assets: webpack'."\n", Console::BOLD, Console::FG_GREEN);
-        return Controller::EXIT_CODE_NORMAL;
+        return ExitCode::OK;
     }
 
     /**
@@ -94,7 +95,7 @@ class WebpackController extends Controller
     {
         $this->generateWebpackConfigJs();
         $this->stdout('Build assets: webpack'."\n", Console::BOLD, Console::FG_GREEN);
-        return Controller::EXIT_CODE_NORMAL;
+        return ExitCode::OK;
     }
 
     /**
@@ -107,7 +108,7 @@ class WebpackController extends Controller
     {
         $this->generatePackageJson();
         $this->stdout('Install npm dependencies: npm install'."\n", Console::BOLD, Console::FG_GREEN);
-        return Controller::EXIT_CODE_NORMAL;
+        return ExitCode::OK;
     }
 
     /**
@@ -120,7 +121,7 @@ class WebpackController extends Controller
     {
         $this->generateConfigJson();
         $this->stdout('Build assets with generated config: webpack'."\n", Console::BOLD, Console::FG_GREEN);
-        return Controller::EXIT_CODE_NORMAL;
+        return ExitCode::OK;
     }
 
     /**
@@ -133,7 +134,7 @@ class WebpackController extends Controller
     {
         $this->generateTsConfigJson();
         $this->stdout('Build typescript assets with generated config: webpack'."\n", Console::BOLD, Console::FG_GREEN);
-        return Controller::EXIT_CODE_NORMAL;
+        return ExitCode::OK;
     }
 
     /**
