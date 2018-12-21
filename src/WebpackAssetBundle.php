@@ -50,6 +50,18 @@ class WebpackAssetBundle extends AssetBundle
     public $cache = 'cache';
 
     /**
+     * @var array list of bundles which are css only (to not add useless js in head)
+     */
+    public $cssOnly = [
+    ];
+
+    /**
+     * @var array list of bundles which are js only (to not add useless css in head)
+     */
+    public $jsOnly = [
+    ];
+
+    /**
      * @var string name of webpack asset catalog, should be in synch with webpack.config.js
      */
     public $webpackAssetCatalog = 'assets-catalog.json';
@@ -95,10 +107,10 @@ class WebpackAssetBundle extends AssetBundle
                     $bundles = $cache->get($cacheKey);
                 }
                 foreach($this->webpackBundles as $bundle) {
-                    if (isset($bundles[$bundle]['js']) === true) {
+                    if (isset($bundles[$bundle]['js']) === true && in_array($bundle, $this->cssOnly) === false) {
                         $this->js[] = $bundles[$bundle]['js'];
                     }
-                    if (isset($bundles[$bundle]['css']) === true) {
+                    if (isset($bundles[$bundle]['css']) === true && in_array($bundle, $this->jsOnly) === false) {
                         $this->css[] = $bundles[$bundle]['css'];
                     }
                 }
