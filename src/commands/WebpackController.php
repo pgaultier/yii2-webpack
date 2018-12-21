@@ -260,18 +260,29 @@ class WebpackController extends Controller
                         $error = 'The composer.json file must exist!';
                         return false;
                     }
+
+                    if (is_dir(!$input)) {
+                        $error = 'Directory "'.$input.'" does not exist!';
+                        return false;
+                    }
+                    if (is_file($input)) {
+                        $error = 'Please insert a path: e.g. "app/"';
+                        return false;
+                    }
                     return true;
                 }
             ];
             if (file_exists('composer.json') === true) {
                 $options['default'] = 'composer.json';
             }
+
             $composerJson = $this->prompt('Relative path to composer.json ?', $options);
-            $composerPath = pathinfo($composerJson, PATHINFO_DIRNAME);
+            $composerPath = realpath($composerJson);
+
             $this->composerJsonPath = $composerPath;
         }
-        return $this->composerJsonPath;
 
+        return $this->composerJsonPath;
     }
 
     /**
@@ -282,7 +293,7 @@ class WebpackController extends Controller
     {
         $this->stdout('Generating package.json'."\n", Console::FG_GREEN, Console::BOLD);
         $composerJsonPath = $this->findComposerJson();
-        $composerData = Json::decode(file_get_contents($composerJsonPath.'/composer.json'));
+        $composerData = Json::decode(file_get_contents($composerJsonPath.DIRECTORY_SEPARATOR.'composer.json'));
 
         $packageJson = Json::decode(file_get_contents(Yii::getAlias($this->packageJson)));
 
