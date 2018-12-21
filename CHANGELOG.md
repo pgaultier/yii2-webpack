@@ -1,6 +1,9 @@
 Yii2 Webpack Change Log
 =======================
 
+1.4.0 December 21, 2018
+-----------------------
+
  * Enh: adding SRI
  * Enh: allow the developper to not add specific bundles (js/css)
  * Fix: fix problem with asset generator
