@@ -1,23 +1,24 @@
 /**
  * webpack.config.js
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2017 Philippe Gaultier
- * @license http://www.ibitux.com/license license
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2018 Redcat
+ * @license http://www.redcat.io/license license
  * @version XXX
- * @link http://www.ibitux.com
+ * @link http://www.redcat.io
  */
 
 const argv = require('yargs').argv;
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const AssetsPlugin = require('assets-webpack-plugin');
+const AssetsWebpackPlugin = require('assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const Hashes = require('jshashes');
 
-const prodFlag = process.argv.indexOf('-p') !== -1;
+const prodFlag = (process.argv.indexOf('-p') !== -1) || (process.argv.indexOf('production') !== -1);
 
 var confPath = './webpack-yii2.json';
 if(argv.env && argv.env.config) {
@@ -26,35 +27,37 @@ if(argv.env && argv.env.config) {
 if(!fs.existsSync(confPath)) {
     throw 'Error: file "' + confPath + '" not found.';
 }
+var version = '1.0.0';
 
 var config = require(confPath);
 if (argv.env && argv.env.config) {
     config.sourceDir = path.relative(__dirname, argv.env.config);
 }
 
-module.exports = {
+var webpackConfig = {
     entry: config.entry,
     context: path.resolve(__dirname, config.sourceDir, config.subDirectories.sources),
     output: {
-        path: path.resolve(__dirname, config.sourceDir, config.subDirectories.dist, config.assets.scripts),
-        filename: prodFlag ?  '[name].[chunkhash:6].js' : '[name].js'
+        path: path.resolve(__dirname, config.sourceDir, config.subDirectories.dist),
+        filename: prodFlag ?  config.assets.scripts + '/[name].[chunkhash:6].js' : config.assets.scripts + '/[name].js'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            names: config.commonBundles
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(prodFlag),
+            VERSION: JSON.stringify(prodFlag ? version : version + '-dev'),
         }),
-        new ExtractTextPlugin({
+        new ExtractTextWebpackPlugin({
             filename:  function(getPath) {
-                return getPath(prodFlag ? '../' + config.assets.styles + '/[name].[contenthash:6].css' : '../' + config.assets.styles + '/[name].css');
+                return getPath(prodFlag ? config.assets.styles + '/[name].[hash:6].css' : config.assets.styles + '/[name].css');
             },
             allChunks: true
         }),
-        new CompressionPlugin({
+        new CompressionWebpackPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
-            test: /\.(js|css)$/
-            // threshold: 10240,
-            // minRatio: 0.8
+            test: /\.(js|css)/,
+            threshold: 10,
+            minRatio: 1
         }),
         new CleanWebpackPlugin([config.subDirectories.dist], {
             root: path.resolve(__dirname, config.sourceDir),
@@ -62,23 +65,81 @@ module.exports = {
             dry: false,
             exclude: []
         }),
-        new AssetsPlugin({
+        new AssetsWebpackPlugin({
             prettyPrint: true,
             filename: config.catalog,
             path:config.sourceDir,
             processOutput: function (assets) {
-                var i;
-                var j;
+                let i;
+                let j;
+                let finalAsset = {};
                 for (i in assets) {
                     if(assets.hasOwnProperty(i)) {
+                        if (finalAsset.hasOwnProperty(i) === false) {
+                            finalAsset[i] = {};
+                        }
                         for (j in assets[i]) {
                             if (assets[i].hasOwnProperty(j)) {
-                                assets[i][j] = path.join(config.assets.scripts, assets[i][j]).replace('\\', '/');
+                                let currentAsset = assets[i][j];
+                                if (Array.isArray(currentAsset) === true) {
+                                    for (let c = 0; c < currentAsset.length; c++) {
+                                        if ((typeof currentAsset[c] !== 'string') && (currentAsset[c].file)) {
+                                            currentAsset[c] = currentAsset[c].file;
+                                        }
+                                        if (config.hasOwnProperty('sri') === true && config.sri !== false) {
+                                            let file = path.resolve(__dirname, config.sourceDir, config.subDirectories.dist, currentAsset[c]);
+                                            let contents = fs.readFileSync(file).toString();
+                                            let hash;
+                                            switch (config.sri) {
+                                                case 'sha256':
+                                                    hash = 'sha256-' + new Hashes.SHA256().b64(contents);
+                                                    break;
+                                                case 'sha512':
+                                                default:
+                                                    hash = 'sha512-' + new Hashes.SHA512().b64(contents);
+                                                    break;
+                                            }
+
+                                            finalAsset[i][j] = {
+                                                file: currentAsset[c].replace('\\', '/'),
+                                                integrity: hash
+                                            };
+                                        } else {
+                                            finalAsset[i][j] = currentAsset[c].replace('\\', '/');
+                                        }
+
+                                    }
+                                } else {
+                                    if ((typeof currentAsset !== 'string') && (currentAsset.file)) {
+                                        currentAsset = currentAsset.file;
+                                    }
+                                    if (config.hasOwnProperty('sri') === true && config.sri !== false) {
+                                        let file = path.resolve(__dirname, config.sourceDir, config.subDirectories.dist, currentAsset);
+                                        let contents = fs.readFileSync(file).toString();
+                                        let hash;
+                                        switch (config.sri) {
+                                            case 'sha256':
+                                                hash = 'sha256-' + new Hashes.SHA256().b64(contents);
+                                                break;
+                                            case 'sha512':
+                                            default:
+                                                hash = 'sha512-' + new Hashes.SHA512().b64(contents);
+                                                break;
+                                        }
+
+                                        finalAsset[i][j] = {
+                                            file: currentAsset.replace('\\', '/'),
+                                            integrity: hash
+                                        };
+                                    } else {
+                                        finalAsset[i][j] = currentAsset.replace('\\', '/');
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                return JSON.stringify(assets, null, this.prettyPrint ? 2 : null);
+                return JSON.stringify(finalAsset, null, this.prettyPrint ? 2 : null);
             }
         })
     ],
@@ -102,39 +163,60 @@ module.exports = {
             },
             {
                 test: /\.(ttf|eot|svg|woff|woff2)(\?[a-z0-9]+)?$/,
-                loader: 'file-loader?name=../[path][name].[ext]'
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
             },
             {
                 test: /\.(jpg|png|gif)$/,
-                loader: 'file-loader?name=../[path][name].[ext]'
-            },
-            {
-                test: /\.less$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'less-loader']
-                })
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
             },
             {
                 test: /\.s[ac]ss$/,
-                use: ExtractTextPlugin.extract({
+                use: ExtractTextWebpackPlugin.extract({
+                    publicPath: '../',
                     fallback: 'style-loader',
                     use: ['css-loader', 'sass-loader']
                 })
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
+                use: ExtractTextWebpackPlugin.extract({
+                    publicPath: '../',
                     fallback: 'style-loader',
                     use: ['css-loader']
                 })
             }
         ]
     },
+    optimization: {
+        runtimeChunk: {
+            name: "manifest"
+        },
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
+    },
     resolve: {
         alias: config.alias,
         extensions: ['.tsx', '.ts', '.js']
     },
-    devtool: 'source-map',
     target: 'web'
 };
+
+if (!prodFlag) {
+    webpackConfig.devtool = 'source-map';
+
+}
+
+module.exports = webpackConfig;

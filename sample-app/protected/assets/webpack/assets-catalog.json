@@ -1,8 +1,20 @@
 {
-  "app": {
-    "js": "js/app.js"
-  },
   "manifest": {
-    "js": "js/manifest.js"
+    "js": {
+      "file": "js/manifest.js",
+      "integrity": "sha256-MpN6qjC1Xd6Fszelft5tdevqu77gQj5iZc0CAm6trgI="
+    }
+  },
+  "app": {
+    "js": {
+      "file": "js/app.js",
+      "integrity": "sha256-2C62p0KQc/6jfpbXryYQqeICSlb0vXg0gF/APAwqPEA="
+    }
+  },
+  "": {
+    "gz": {
+      "file": "js/manifest.js.map.gz",
+      "integrity": "sha256-klacqo93R/zwPzJgkgxYmAb8nrhsOADZ6TgvQ30x1JE="
+    }
   }
 }
