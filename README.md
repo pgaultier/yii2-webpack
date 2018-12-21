@@ -242,14 +242,14 @@ webpack
 ```
 or to enable automatic build on file change
 ```
-webpack --watch
+npm run watch
 ```
 
 
 For production run
 
 ```
-webpack -p
+npm run dist-clean 
 ```
 
 #### Add files to your repository
@@ -288,6 +288,7 @@ When your assets are ready, you have to make sure following files are added to y
         "styles": "css",
         "scripts": "js"
     },
+    "sri": "sha256",
     "catalog": "assets-catalog.json"
 }
 ```
