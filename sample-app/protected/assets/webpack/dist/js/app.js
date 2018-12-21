@@ -1,8 +1,47 @@
-webpackJsonp([0],[
-/* 0 */
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["app"],{
+
+/***/ "./app.ts":
+/*!****************!*\
+  !*** ./app.ts ***!
+  \****************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+/**
+ * app.ts
+ *
+ * Typescript
+ *
+ * Application entry point
+ *
+ * @author Philippe Gaultier <pgaultier@sweelix.net>
+ * @copyright 2010-2017 Sweelix
+ * @license http://www.sweelix.net/license license
+ * @version XXX
+ * @link http://www.sweelix.net
+ * @package application\assets\webpack
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var Application_1 = __webpack_require__(/*! ./app/Application */ "./app/Application.ts");
+// Instanciate application
+var application = new Application_1.Application();
+// Run application
+application.run();
+
+
+/***/ }),
+
+/***/ "./app/Application.ts":
+/*!****************************!*\
+  !*** ./app/Application.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 /**
  * Application.ts
  *
@@ -15,7 +54,6 @@ webpackJsonp([0],[
  * @link http://www.sweelix.net
  * @package application\assets\webpack
  */
-
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Application
@@ -29,7 +67,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @link http://www.sweelix.net
  * @package application\assets\webpack
  */
-var Application = (function () {
+var Application = /** @class */ (function () {
     /**
      * Class contructor
      */
@@ -47,34 +85,7 @@ var Application = (function () {
 exports.Application = Application;
 
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * app.ts
- *
- * Typescript
- *
- * Application entry point
- *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2017 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @package application\assets\webpack
- */
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Application_1 = __webpack_require__(0);
-// Instanciate application
-var application = new Application_1.Application();
-// Run application
-application.run();
-
-
 /***/ })
-],[1]);
+
+},[["./app.ts","manifest"]]]);
 //# sourceMappingURL=app.js.map
