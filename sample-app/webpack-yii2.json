@@ -20,5 +20,6 @@
         "styles": "css",
         "scripts": "js"
     },
+    "sri": "sha256",
     "catalog": "assets-catalog.json"
 }

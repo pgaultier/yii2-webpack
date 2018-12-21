@@ -11,13 +11,13 @@
         }
     ],
     "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
     ],
     "require": {
         "php": ">=5.6.0",
-        "ext-mcrypt": "*",
-        "ext-openssl": "*",
-        "ext-curl": "*",
-        "ext-gd": "*",
         "ext-intl": "*",
         "yiisoft/yii2": "~2.0",
         "sweelix/yii2-webpack": "~1.0"
@@ -31,9 +31,6 @@
         "process-timeout": 1800
     },
     "scripts": {
-        "pre-install-cmd": [
-            "@composer global require \"fxp/composer-asset-plugin:^1.2.0\""
-        ],
         "post-create-project-cmd": [
             "yii\\composer\\Installer::postCreateProject"
         ]
